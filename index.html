@@ -1,1 +1,78 @@
+<!-- coded WITHOUT AI #tourture -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyLift</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg"></div>
 
+    <main class="shell">
+      <section class="hero card">
+        <div>
+          <p class="eyebrow">Free study help</p>
+          <h1>StudyLift</h1>
+          <p class="hero-text">
+            Fast, simple study help for O Levels and similar exams.
+            Clean explanations, revision plans, quick summaries.
+          </p>
+        </div>
+
+        <div class="hero-badge">
+          <span>Powered by Gemini Flash</span>
+        </div>
+      </section>
+
+      <section class="grid">
+        <section class="card panel">
+          <div class="panel-head">
+            <h2>Study Assistant</h2>
+            <span class="status" id="status-pill">Ready</span>
+          </div>
+
+          <div class="settings">
+            <label>
+              Model
+              <input id="assistant-model" value="gemini-2.5-flash" />
+            </label>
+          </div>
+
+          <div id="chat-log" class="chat-log" aria-live="polite"></div>
+
+          <form id="chat-form" class="chat-form">
+            <input
+              id="chat-input"
+              type="text"
+              placeholder="Ask for a summary, revision plan, or explanation..."
+              required
+            />
+            <button id="send-btn" type="submit">Send</button>
+          </form>
+        </section>
+
+        <section class="card side">
+          <h3>What it can do</h3>
+          <ul>
+            <li>Explain topics simply</li>
+            <li>Make revision plans</li>
+            <li>Generate quiz questions</li>
+            <li>Summarize notes</li>
+          </ul>
+
+          <h3>Good prompts</h3>
+          <div class="prompt-list">
+            <button class="prompt-chip" data-prompt="Explain photosynthesis simply for O Level.">Photosynthesis</button>
+            <button class="prompt-chip" data-prompt="Make me a 45 minute revision plan for chemistry.">Revision plan</button>
+            <button class="prompt-chip" data-prompt="Give me 5 exam questions on electricity.">Quiz questions</button>
+            <button class="prompt-chip" data-prompt="Summarize cell biology in simple points.">Cell biology</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
