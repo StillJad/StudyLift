@@ -18,6 +18,7 @@ function addMessage(text, role) {
 function setBusy(isBusy) {
   sendBtn.disabled = isBusy;
   chatInput.disabled = isBusy;
+  modelInput.disabled = isBusy;
   statusPill.textContent = isBusy ? 'Thinking...' : 'Ready';
 }
 
@@ -29,15 +30,30 @@ async function getGeminiReply(prompt) {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ prompt, model })
+    body: JSON.stringify({
+      prompt,
+      model
+    })
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Request failed (${response.status}): ${errorText}`);
+  const rawText = await response.text();
+
+  let data;
+  try {
+    data = JSON.parse(rawText);
+  } catch {
+    throw new Error(`Server returned invalid JSON: ${rawText}`);
   }
 
-  const data = await response.json();
+  if (!response.ok) {
+    const message =
+      data?.error ||
+      data?.detail ||
+      data?.message ||
+      `Request failed with status ${response.status}`;
+    throw new Error(message);
+  }
+
   const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
   if (!text) {
@@ -79,4 +95,7 @@ promptChips.forEach((chip) => {
   });
 });
 
-addMessage('Hi. Ask me anything you are studying, and I will keep it clear and exam-focused.', 'assistant');
+addMessage(
+  'Hi. Ask me anything you are studying, and I will keep it clear and exam-focused.',
+  'assistant'
+);
